@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hyflik • Video Grid</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Website sederhana bergaya Netflix. Klik poster untuk menonton videonya." />
+
+  <meta name="monetag" content="f17d0998f016f0c02396151ffde130a1">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Hyflik - Nonton Film Sederhana" />
+  <meta property="og:description" content="Website streaming sederhana bergaya Hyflik.@biasaL4" />
+  <meta property="og:image" content="https://kasihterma-star.github.io/hyflik/hyflik_H.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hyfliknibosss.my.id/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="hyflik_H.png" sizes="32x32">
+
+  <style>
+    .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .poster::after{content:"";position:absolute;inset:0;transition:opacity .2s;opacity:0;background:linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,0))}
+    .poster:hover::after{opacity:.7}
+    @keyframes marquee { 0%{transform:translateX(100%);} 100%{transform:translateX(-100%);} }
+    .animate-marquee { display:inline-block; animation:marquee 12s linear infinite; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9G24NHS386"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9G24NHS386');
+  </script>
+</head>
+<body class="bg-neutral-950 text-white">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <!-- SVG huruf H ramping -->
+        <svg width="24" height="24" viewBox="0 0 24 24" class="text-red-600 drop-shadow" aria-hidden="true">
+          <path fill="currentColor" d="M5 3h3v18H5zM16 3h3v18h-3z"/>
+          <path fill="currentColor" d="M8 11.2h8v1.6H8z"/>
+        </svg>
+        <span class="font-bold tracking-wide">Hyflik</span>
+      </div>
+      <div class="hidden sm:block text-sm text-red-300">
+        🎉 Selamat datang di Hyflik! Kecepatan loading tergantung perangkat & jaringan.
+      </div>
+      <div class="ml-auto w-full max-w-md">
+        <label class="relative block">
+          <input id="searchBox" type="search" placeholder="Cari judul atau kategori…"
+                 class="w-full bg-neutral-900/80 border border-white/10 rounded-xl pl-10 pr-3 py-2 outline-none focus:ring-2 focus:ring-red-600/60" />
+          <svg class="absolute left-3 top-2.5" width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tulisan Berjalan -->
+  <div class="overflow-hidden whitespace-nowrap bg-red-600 text-white py-2">
+    <div class="animate-marquee inline-block px-4 font-semibold">
+      🎉 Selamat datang di Hyflik — Nonton film favoritmu gratis 🎬 | 
+      Update film terbaru setiap minggu! 🍿 Kecepatan loading tergantung perangkat & jaringan 🙏🏻.
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4">
+    <!-- Hero -->
+    <section id="hero" class="relative mt-4 mb-6 overflow-hidden rounded-2xl min-h-[240px] sm:min-h-[320px] md:min-h-[420px]">
+      <div id="heroBg" class="absolute inset-0 bg-cover bg-center transition-[background-image] duration-700 ease-out"></div>
+      <div class="relative z-10 p-6 sm:p-10 md:p-12 max-w-2xl">
+        <h1 id="heroTitle" class="text-2xl sm:text-3xl md:text-5xl font-bold drop-shadow">Tonton Apa Saja</h1>
+        <p id="heroDesc" class="mt-2 text-white/80">Klik poster di bawah untuk memutar video.</p>
+        <div class="mt-4 flex gap-3">
+          <a id="heroPlay" href="#" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 active:bg-red-800 rounded-xl px-4 py-2 font-medium shadow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Putar</a>
+          <a id="heroMore" href="#grid"
+             class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 rounded-xl px-4 py-2 font-medium">
+            Jelajahi</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kategori -->
+    <div class="mb-3 flex flex-wrap gap-2" id="chipBar"></div>
+    <div id="yearFilter" class="flex flex-wrap gap-2 mt-2 hidden"></div>
+
+    <!-- Grid Poster -->
+    <section>
+      <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4"></div>
+    </section>
+
+    <footer class="py-10 text-center text-white/50 text-sm">
+      <div class="flex items-center justify-center gap-3">
+        <span>© <span id="year"></span> Hyflik (L4) — request film/kendala via IG</span>
+        <a href="https://www.instagram.com/hy.flik/" target="_blank" rel="noopener"
+           class="inline-flex items-center text-white/60 hover:text-pink-500" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal Pilih Server -->
+  <div id="serverModal" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="relative mx-auto mt-24 w-11/12 max-w-md rounded-2xl bg-neutral-900 border border-white/10 shadow-xl max-h-[80vh] overflow-hidden flex flex-col">
+      <div class="p-4 border-b border-white/10 flex items-center justify-between">
+        <h3 id="serverModalTitle" class="text-lg font-semibold">Pilih Server</h3>
+        <button id="serverModalClose" class="rounded-lg p-2 hover:bg-white/5">✕</button>
+      </div>
+      <div id="serverList" class="p-4 space-y-2 max-h-80 overflow-y-auto"></div>
+      <div class="p-4 pt-0 text-sm text-white/60">Tips: jika ada kendala hubungi kami di Instagram melalui DM.</div>
+    </div>
+  </div>
+
+  <script>
+    // === DATA VIDEO ===
+    const videos = [
+      { 
+        title: "Tabayyun ",
+        year: 2025,
+        quality: "SD",
+        urls: [
+          { name: " Server 1 tidak HD )  ", link: "https://film.myflixnibosss.my.id/videos/Tabayyun (2025) myflix.mp4" },
+          { name: "Server 2 tidak HD (CANVA) ", link: "https://www.canva.com/design/DAGzHrgpGyI/AYCTSXLu2Zb0QWQJbvBZjA/watch?utm_content=DAGzHrgpGyI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h6aeec65934" },
+          { name: " Server 3 tidak HD (Google Foto)  ", link: "https://photos.app.goo.gl/E3kRCXc3P35YgfDs7" },
+          { name: " HD coming soon ", link: "" },
+        ],
+        thumb: "tabayyun.webp",
+        category: "Indonesia"
+      },
+
+
+
+
+      
+       { 
+        title: "How To Train Your Dragon 2025 - myflik",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://film.myflixnibosss.my.id/videos/How To Train Your Dragon 2025 - myflik.mp4" },
+          { name: "Server 2 ( Google Foto )", link: "https://photos.app.goo.gl/yNMBPpSekYknSNH18 - myflik.mp4" },
+        ],
+        thumb: "how.webp",
+        category: "Fiksi"
+      },
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      { 
+        title: "Twelve",
+        year: 2025,
+        urls: [
+          { name: "Episode 1 ", link: "https://www.canva.com/design/DAGyomgE8iw/Xp1eKDA2xsw9O9NNTZ6mCw/watch?utm_content=DAGyomgE8iw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha2d3d8e4b2" },
+          { name: "Episode 2 server 1 ", link: "https://film.myflixnibosss.my.id/videos/Twelve - Season 1 Episode 2 (2025)-.mp4" },
+          { name: "Episode 2 server 2 (canva)", link: "https://www.canva.com/design/DAGzDoJM02k/pZnGD_ZEsEZ8FIKskd-Slw/watch?utm_content=DAGzDoJM02k&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4b246aff28" },
+          { name: "Episode 2 server 3 (Google Foto)", link: "https://photos.app.goo.gl/ag8fzpjNg2qBNpPu9" },
+          { name: "Episode 3 sever 1  ", link: "https://film.myflixnibosss.my.id/videos/myflix Twelve Season 1 Episode 3.mp4" },
+           { name: "Episode 3 sever 2 (canva)",link: "https://www.canva.com/design/DAGzYMT5WIk/q6tQyTdGHtk7C2S3OxatTw/watch?utm_content=DAGzYMT5WIk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfc1e1703f8" },
+              { name: "Episode 3 sever 3 (Google Foto)" , link: "https://photos.app.goo.gl/C1Fvw2NVRkekzyNFA" },
+          { name: "Episode 4 sever 1 ", link: "https://film.myflixnibosss.my.id/videos/myflix Twelve Season 1 Episode 4 2025.mp4" },
+              { name: "Episode 4 sever 2 (canva)", link: "https://www.canva.com/design/DAGzbkgSU8Y/SXLtyYWY2k5eS7qVM3aH9Q/watch?utm_content=DAGzbkgSU8Y&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h21fb971aa7" },
+                   { name: "Episode 4 sever 2 (Google Foto)", link: "https://photos.app.goo.gl/GyP8onwWLUKxYqmk6" },
+          { name: "Episode 5 coming soon", link: "" },
+          { name: "Episode 6coming soon", link: "" },
+        ],
+        thumb: "Twelve.webp",
+        category: " Korea, Action, series "
+      },
+      { 
+        title: "The Conjuring: Last Rites",
+        year: 2025,
+        quality: "CAM",
+        urls: [
+          { name: "tidak HD ", link: "https://photos.app.goo.gl/M4UtXUtJn8iJAUcw7" },
+          { name: " HD coming soon ", link: "" },
+        ],
+        thumb: "conjuring.webp",
+        category: "Horor"
+      },
+      { 
+        title: "Doraemon the Movie: Nobitas Art World Tales",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/scLvMeYnjevd9xnD9" },
+        ],
+        thumb: "doraemon.webp",
+        category: "Animasi"
+      },
+      { 
+        title: "Kpop Demon Hunters",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://www.canva.com/design/DAGyisTxF9w/Tz-HaGQNFDQTyah3cN1g7w/watch?utm_content=DAGyisTxF9w&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h518b85c782" },
+        ],
+        thumb: "HUNTER.webp",
+        category: "Animasi"
+      },
+      { 
+        title: "S Line - Season 1 Episode 1-6",
+        year: 2025,
+        urls: [
+          { name: "Episode 1 ", link: "https://photos.app.goo.gl/WAoXGsjNh966nKwCA" },
+          { name: "Episode 2", link: "https://photos.app.goo.gl/1aaizkQc6hmJxPuH9" },
+          { name: "Episode 3", link: "https://photos.app.goo.gl/G7KVQEDbJDhwBSVu7" },
+          { name: "Episode 4", link: "https://photos.app.goo.gl/DmZ5JHM5Cyjmec277" },
+          { name: "Episode 5", link: "https://photos.app.goo.gl/V3gbcxs6UKo6e4iF8" },
+          { name: "Episode 6", link: "https://photos.app.goo.gl/3iJ6LzQMauX4wqeV7" },
+        ],
+        thumb: "line.webp",
+        category: "korea, series"
+      },
+      { 
+        title: "Jurassic World Rebirth",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/ZoxuA25Hutkjbw8J8" },
+        ],
+        thumb: "jurassic-rebirth.webp",
+        category: "Fiksi"
+      },
+      { 
+        title: "Ghost Train",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/an4dkSvBfRfJQwy78" },
+        ],
+        thumb: "ghost-train.webp",
+        category: "Horor"
+      },
+      { 
+        title: "Superman",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/WyR3JcvUzp9ixQt17" },
+        ],
+        thumb: "Superman.webp",
+        category: "Action"
+      },
+      { 
+        title: "The Bad Guys 2",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/SukS1koyq1n1JcwJ9" },
+        ],
+        thumb: "gusy.webp",
+        category: "Animasi"
+      },
+      { 
+        title: "Panggil Aku Ayah",
+        year: 2025,
+        quality: "CAM",
+        urls: [
+          { name: "tidak HD ", link: "https://photos.app.goo.gl/SukS1koyq1n1JcwJ9" },
+          { name: " HD coming soon ", link: "" },
+        ],
+        thumb: "pang.webp",
+        category: "Indonesia"
+      },
+      { 
+        title: "LA TAHZAN: CINTA, DOSA, LUKA  ",
+        year: 2025,
+        quality: "CAM",
+        urls: [
+          { name: "tidak HD ", link: "https://photos.app.goo.gl/oKmAG7XGHBkZLHHb6" },
+          { name: " HD coming soon ", link: "" },
+        ],
+        thumb: "la_tahzan.webp",
+        category: "Indonesia"
+      },
+      { 
+        title: "Holy-Night-Demon-Hunters",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://www.canva.com/design/DAGyiaxU7iY/DXF7V2NtCkmoafOxj2N9ng/watch?utm_content=DAGyiaxU7iY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h09a3a59950" },
+        ],
+        thumb: "Demon.webp",
+        category: "Horor,Action"
+      },
+
+{ 
+        title: " A Shop For Killers",
+        year: 2024,
+        urls: [
+          { name: "Episode 1 ", link: "https://www.canva.com/design/DAGyugC3CQM/phzysImO8sn0_PE3akigHw/watch?utm_content=DAGyugC3CQM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h47bbdd803f" },
+          { name: "Episode 2", link: "https://photos.app.goo.gl/r5ezjeRkArdXmnau6" },
+          { name: "Episode 3", link: "https://photos.app.goo.gl/Ft2ebfEBFcUUxmrU6" },
+          { name: "Episode 4", link: "https://photos.app.goo.gl/w1tBfgEAAZ6zvB3Q6" },
+          { name: "Episode 5", link: "https://photos.app.goo.gl/2XCLuFjDyUhLF3rX9" },
+          { name: "Episode 6", link: "https://photos.app.goo.gl/2XCLuFjDyUhLF3rX9" },
+           { name: "Episode 7", link: "https://photos.app.goo.gl/9tyR36LAq2nQ5xyt8" },
+           { name: "Episode 8", link: "https://photos.app.goo.gl/TJD1imbQVhERZgFz8" },
+        ],
+        thumb: "killer.webp",
+        category: "korea, series"
+      },
+
+
+{ 
+        title: "my flix Azzamine ",
+        year: 2024,
+        quality: "SD",
+        urls: [
+          { name: " Server 1 tidak HD )  ", link: "https://film.myflixnibosss.my.id/videos/my flix Azzamine 2024.mp4" },
+          { name: "Server 2 tidak HD (CANVA) ", link: "https://www.canva.com/design/DAGzHkozbyE/1z9or22qkX3c_0Yp2X-0Ig/watch?utm_content=DAGzHkozbyE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h66dc078214" },
+          { name: " Server 3 tidak HD (Google Foto)  ", link: "https://photos.app.goo.gl/uvQAQ82RioLegbV36" },
+          { name: " HD coming soon ", link: "" },
+        ],
+        thumb: "azzamine.webp",
+        category: "Indonesia"
+      },
+
+
+
+
+
+
+
+
+      
+      { 
+        title: "Vigilante",
+        year: 2023,
+        urls: [
+          { name: "Episode 1 ", link: "https://www.canva.com/design/DAGyo_nDw1k/XkyygzK1XSaMSxNiHNeXhg/watch?utm_content=DAGyo_nDw1k&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h55bb9d1889" },
+          { name: "Episode 2 ", link: "https://www.canva.com/design/DAGy6xMAOr8/96_JytK4MQCEgBWOoaapPg/watch?utm_content=DAGy6xMAOr8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h3031ce4d84" },
+          { name: "Episode 3coming soon", link: "" },
+          { name: "Episode 4 coming soon", link: "" },
+          { name: "Episode 5 coming soon", link: "" },
+          { name: "Episode 6coming soon", link: "" },
+        ],
+        thumb: "Vigilante.webp",
+        category: " Korea, Action "
+      },
+      { 
+        title: "hidden love  - Season 1 Episode 1-25",
+        year: 2023,
+        urls: [
+          { name: "Episode 1 ", link: "https://photos.app.goo.gl/em9k6w1EYgP2gnbn7" },
+          { name: "Episode 2", link: "https://photos.app.goo.gl/sG9rvJve8h17oAUH6" },
+          { name: "Episode 3", link: "https://photos.app.goo.gl/FZJuiCQYDHyMFwLK8" },
+          { name: "Episode 4", link: "https://photos.app.goo.gl/8zWhLT4yZCHKH9Z27" },
+          { name: "Episode 5", link: "https://photos.app.goo.gl/i3jDoJdFyngyy5kz9" },
+          { name: "Episode 6", link: "https://photos.app.goo.gl/iDHYC2ofyPUamQCb7" },
+          { name: "Episode 7", link: "https://photos.app.goo.gl/1h7nVNRgvRp4kP777" },
+          { name: "Episode 8", link: "https://photos.app.goo.gl/jsbnTxBVUvU8fCg56" },
+          { name: "Episode 9", link: "https://photos.app.goo.gl/1RvWKjwiiun7k489A" },
+          { name: "Episode 10", link: "https://photos.app.goo.gl/9yXG3WNyjM8BoxyF7" },
+          { name: "Episode 11", link: "https://photos.app.goo.gl/dUzqQRtFZQwygUF67" },
+          { name: "Episode 12", link: "https://www.canva.com/design/DAGyiIYurWY/OgRnQXkM4QLAI5MWSaCPoQ/watch?utm_content=DAGyiIYurWY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h392f9a9c85" },
+          { name: "Episode 13", link:  "https://photos.app.goo.gl/bQ5v3sXMrnraE8iU8"},
+          { name: "Episode 14 coming soon", link:  ""},
+          { name: "Episode 15 coming soon", link:  ""},
+          { name: "Episode 16 coming soon", link:  ""},
+          { name: "Episode 17 coming soon", link:  ""},
+          { name: "Episode 18 coming soon", link:  ""},
+          { name: "Episode 19 coming soon", link:  ""},
+          { name: "Episode 20 coming soon", link:  ""},
+          { name: "Episode 21 coming soon", link:  ""},
+          { name: "Episode 22 coming soon", link:  ""},
+          { name: "Episode 23 coming soon", link:  ""},
+          { name: "Episode 24 coming soon", link:  ""},
+          { name: "Episode 25 coming soon", link:  ""},
+        ],
+        thumb: "hiddenlove.webp",
+        category: "cina, series"
+      },
+      { 
+        title: "Iron Man 3",
+        year: 2013,
+        urls: [
+          { name: "CAM", link: "https://photos.app.goo.gl/uPS8d8R4ZTVAcrNS9" },
+        ],
+        thumb: "iron-man-3.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Iron Man 2",
+        year: 2013,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/ADNQ8wPqs6Sp7F396" },
+        ],
+        thumb: "Iron-Man-2.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Iron Man 1",
+        year: 2013,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/w5LbdGXPDu5bwQVk9" },
+        ],
+        thumb: "Iron Man.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "mission impossible",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/htjNvRGgwtMHpgpu8" },
+        ],
+        thumb: "mission.webp",
+        category: " Action"
+      },
+      { 
+        title: "Cruella",
+        year: 2021,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/TW9G6Jx3ZjaFXrjZ8" },
+        ],
+        thumb: "cruella_small.webp",
+        category: " Fiksi"
+      },
+
+  
+      { 
+        title: "Villagers",
+        year: 2018,
+        urls: [
+          { name: "Server 1", link: "https://www.canva.com/design/DAGyuRCbELQ/8M0x9Mf7__As1xwPp7i13w/watch?utm_content=DAGyuRCbELQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2e803b86dc" },
+          { name: "Server 2", link: "https://photos.app.goo.gl/55hhPFiVg1meSLDZ8" },
+        ],
+        thumb: "villagers_low.webp",
+        category: "Korea, Action"
+      },
+
+   
+      
+      { 
+        title: "The Amazing Spider-Man 2",
+        year: 2014,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/e655cRQ6F1HN6nAC9" },
+        ],
+        thumb: "amazingspiderma2.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "The Amazing Spider-Man",
+        year: 2012,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/dX3wewJZt2iKeKRq9" },
+        ],
+        thumb: "amazingspiderman-300.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Spider-Man 3",
+        year: 2007,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/gd68ZkrMEGnPZ4Ao9" },
+        ],
+        thumb: "spiderman3-600.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Spider-Man 2",
+        year: 2004,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/nbjbHUZ6PYLCJDWw6" },
+        ],
+        thumb: "spiderman2-600.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Spider-Man",
+        year: 2002,
+        urls: [
+          { name: "Server 1", link: "https://kasihterma-star.github.io/series/" },
+        ],
+        thumb: "spiderman.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Venom: Let There Be Carnage",
+        year: 2021,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/9sTKQBWBECAPxken6" },
+        ],
+        thumb: "venom-300.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Venom",
+        year: 2018,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/xpTSosw9LSuZEviW6" },
+        ],
+        thumb: "venom2-300.webp",
+        category: "Marvel, Action"
+      },
+      { 
+        title: "Venom: The Last Dance",
+        year: 2024,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/V91jfWeP52xuCSm9A" },
+        ],
+        thumb: "venom3-300.webp",
+        category: "Marvel, Action"
+      },
+
+  { 
+        title: "How to Train Your Dragon",
+        year: 2010,
+        urls: [
+          { name: "Server 1", link: "https://film.myflixnibosss.my.id/videos/Mflix-How to Train Your Dragon (2010)-1080p.mp4" },
+          { name: "Server 2 (Google Foto) ", link: "https://photos.app.goo.gl/HfGaKp8oZLLHiZFD9" },
+        ],
+        thumb: "how_to_train_your_dragon_20kb.webp",
+        category: "Animasi "
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      { 
+        title: "Leprechaun: The Beginning",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/psNcXAiaMQbmH1yaA" },
+        ],
+        thumb: "Leprechaun.webp",
+        category: "Horor"
+      },
+ { 
+        title: "TENET",
+        year: 2017,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/G8DxWhKGk6Ntgd5E8" },
+        ],
+        thumb: "tenet.webp",
+        category: "Action"
+ },
+
+
+ { 
+        title: "Squid Game Season 1",
+        year: 2021,
+        urls: [
+          { name: "Episode 1 ", link: "https://photos.app.goo.gl/UpgksRXcMgDDmrpBA" },
+          { name: "Episode 2", link: "https://photos.app.goo.gl/ppTdnkbZ8e6wBM9n8" },
+          { name: "Episode 3", link: "https://photos.app.goo.gl/2D2mDE8VcV3Qy6xj8" },
+          { name: "Episode 4", link: "https://www.canva.com/design/DAGyi70DFBQ/e0bITo3jgcr_CyJWmORmJg/watch?utm_content=DAGyi70DFBQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h9f4aa2cb33" },
+        ],
+        thumb: "squid-game.webp",
+        category: "korea,series"
+      },
+
+
+
+
+
+
+
+
+
+
+
+      
+         { 
+        title: " Free Guy ",
+        year: 2021,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/9Dg76xkAkXdFAjbB8" },
+        ],
+        thumb: "free_guy.webp",
+        category: "Fiksi"
+      },
+      
+      { 
+        title: "Dragon Nest: Warriors' Dawn",
+        year: 2014,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/87beK3frL5tVaEQF7" },
+        ],
+        thumb: "Dragon Nest.webp",
+        category: "Animasi"
+      },
+      { 
+        title: "Baby Driver",
+        year: 2017,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/NayWzA4YpHAB3nmf6" },
+        ],
+        thumb: "babydriver-300.webp",
+        category: "Action"
+      },
+      { 
+        title: "Transformers",
+        year: 2007,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/xNL41UktdRjTT7G19" },
+        ],
+        thumb: "transformers.webp",
+        category: "Action"
+      },
+
+
+
+
+            { 
+        title: "Transformers",
+        year: 2009,
+        urls: [
+          { name: "Server 1", link: "https://film.myflixnibosss.my.id/videos/Transformers-Revenge-Of-The-Fallen-2009-.mp4" },
+          { name: "Server 2", link: "https://photos.app.goo.gl/a7n5akspeuWfFq4o8" },
+        ],
+        thumb: "tr9.webp",
+        category: "Action"
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      { 
+        title: "Avatar: The Way of Water",
+        year: 2022,
+        urls: [
+          { name: " SD translate ", link: "https://photos.app.goo.gl/CCeRi8f6wtPJxZCu8" },
+          { name: "HD translate", link: "https://photos.app.goo.gl/9Pq3AhkqWh3M4sKy8" },
+        ],
+        thumb: "avatar2-600.webp",
+        category: "Action, Fiksi"
+      },
+      { 
+        title: "Avatar",
+        year: 2009,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/td1ipB3vQLArbRFj8" },
+        ],
+        thumb: "avatar.webp",
+        category: "Fiksi, Action, Fantasi"
+      },
+      { 
+        title: "Tenggelamnya Kapal Van Der Wijck",
+        year: 2013,
+        quality: "SD",
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/Fsn535LfKE2HWUzs6" },
+        ],
+        thumb: "vanderwijck.webp",
+        category: "Indonesia"
+      },
+      { 
+        title: "Aashiqui 2",
+        year: 2013,
+        quality: "SD",
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/31NRiF7Lp95FEBFj7" },
+        ],
+        thumb: "aashiqui-2.webp",
+        category: "India"
+      },
+      { 
+        title: "Elio",
+        year: 2025,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/AVJoippW4goUkp868" },
+        ],
+        thumb: "elio.webp",
+        category: "Animasi"
+      },
+      { 
+        title: "Coco",
+        year: 2017,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/AjSHE4gmTs39HNYM8" },
+        ],
+        thumb: "coco_small_20kb.webp",
+        category: "Animasi"
+      },
+      { 
+        title: "Norma Antara Mertua dan Menantu",
+        year: 2025,
+        quality: "SD",
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/TMJdqp7PKRZSWwb39" },
+        ],
+        thumb: "mertua.webp",
+        category: "Indonesia"
+      },
+      { 
+        title: "The Wild Robot",
+        year: 2024,
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/7Au5KEtKmyTMJKds8" },
+        ],
+        thumb: "robot1.webp",
+        category: "Animasi"
+      },
+      { 
+        title: "3 Idiots",
+        year: 2009,
+        quality: "SD",
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/K53AmQmRsEHGjV8z7" },
+        ],
+        thumb: "3idiots-600.webp",
+        category: "India"
+      },
+       { 
+        title: "Catch Me If You Can",
+        year: 2002,
+        
+        urls: [
+          { name: "Server 1", link: "https://photos.app.goo.gl/7CuoUWMwMdy9Kvgn8" },
+        ],
+        thumb: "catch_me_if_you_can.webp",
+        category: "Action"
+      },
+
+       { 
+        title: "Dramabox MOD (gratis /premium)",
+        year: 2025 ,
+        
+        urls: [
+          { name: "Donwload aplikasi Dramabox premium ", link: "https://film.myflixnibosss.my.id/apk/dramabox_myflix.apk" },
+          { name: " kusus ANDROID IP GAK DI AJAK ", link: "https://film.myflixnibosss.my.id/apk/dramabox_myflix.apk" },
+           { name: " grub telegram apk MOD  ", link:" https://t.me/Getmodpcs"},
+        ],
+        thumb: "drm.webp",
+        category: "Aplikasi"
+      },
+    ];
+
+    // === Script Modal, Hero, Filter, dll ===
+    const serverModal = document.getElementById('serverModal');
+    const serverList  = document.getElementById('serverList');
+    const serverTitle = document.getElementById('serverModalTitle');
+    const serverClose = document.getElementById('serverModalClose');
+
+    function openServerModal(item) {
+      serverTitle.textContent = `Pilih Server/Episode — ${item.title}`;
+      serverList.innerHTML = '';
+      (item.urls || []).forEach((u, idx) => {
+        const btn = document.createElement('a');
+        btn.href = u.link; btn.target = '_blank';
+        btn.className = 'block w-full rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 px-4 py-3';
+        btn.textContent = u.name || `Server ${idx+1}`;
+        serverList.appendChild(btn);
+      });
+      serverModal.classList.remove('hidden');
+    }
+    function closeServerModal(){ serverModal.classList.add('hidden'); }
+    serverClose.addEventListener('click', closeServerModal);
+    serverModal.addEventListener('click', e => { if(e.target===serverModal) closeServerModal(); });
+    window.addEventListener('keydown', e => { if(e.key==='Escape') closeServerModal(); });
+
+    // === Hero ===
+    const heroBg = document.getElementById('heroBg');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroDesc = document.getElementById('heroDesc');
+    const heroPlay = document.getElementById('heroPlay');
+    let heroIndex = 0;
+    const heroPool = videos.slice(0,6);
+    function setHero(item){
+      heroBg.style.backgroundImage = `linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.75)),url('${item.thumb}')`;
+      heroTitle.textContent = item.title + (item.year ? ` (${item.year})` : "");
+      heroDesc.textContent = "Kategori: " + (item.category || "—");
+      heroPlay.onclick = (e) => {
+        e.preventDefault();
+        if(item.urls.length<=1){ window.open(item.urls[0].link,'_blank'); }
+        else openServerModal(item);
+      };
+    }
+    function nextHero(){ heroIndex=(heroIndex+1)%heroPool.length; setHero(heroPool[heroIndex]); }
+    setHero(heroPool[heroIndex]); setInterval(nextHero,5000);
+
+    // === Filter Chip ===
+    const grid = document.getElementById('grid');
+    const searchBox = document.getElementById('searchBox');
+    const chipBar = document.getElementById('chipBar');
+    const categories = ["Semua", ...Array.from(new Set(videos.flatMap(v=>v.category.split(',').map(c=>c.trim()))))];
+    let activeCategory = 'Semua';
+
+    function chipClass(isActive){
+      const base = 'px-3 py-1.5 rounded-full text-sm border transition-colors active:scale-[.98]';
+      const inactive = 'border-white/10 bg-white/5 text-white/80 hover:bg-white/10';
+      const active   = 'bg-red-600 border-red-600 text-white';
+      return base+' '+(isActive?active:inactive);
+    }
+
+    function renderChips(){
+      chipBar.innerHTML='';
+      categories.forEach(cat=>{
+        const btn=document.createElement('button');
+        btn.textContent=cat;
+        btn.className=chipClass(String(cat)===String(activeCategory));
+        btn.addEventListener('click',()=>{
+          activeCategory=cat; renderChips(); render();
+        });
+        chipBar.appendChild(btn);
+      });
+      const yearBtn=document.createElement('button');
+      yearBtn.textContent='Tahun ⏷'; yearBtn.className=chipClass(false);
+      yearBtn.addEventListener('click',toggleYears);
+      chipBar.appendChild(yearBtn);
+    }
+
+    function toggleYears(){
+      const yearDiv=document.getElementById('yearFilter');
+      yearDiv.classList.toggle('hidden'); yearDiv.innerHTML='';
+      const years=[...new Set(videos.map(v=>v.year))].sort();
+      years.forEach(y=>{
+        const b=document.createElement('button');
+        b.textContent=y; b.className=chipClass(String(y)===String(activeCategory));
+        b.addEventListener('click',()=>{
+          activeCategory=y; renderChips(); render(); toggleYears();
+        });
+        yearDiv.appendChild(b);
+      });
+    }
+
+    // === Badge kualitas ===
+    const QUALITY_ORDER = ["HD","SD","CAM"];
+    function nextQuality(q){
+      const i = QUALITY_ORDER.indexOf(q);
+      return QUALITY_ORDER[(i+1) % QUALITY_ORDER.length] || "HD";
+    }
+    function qualityColor(q){
+      if(q==="HD") return "bg-green-600";
+      if(q==="SD") return "bg-yellow-500";
+      if(q==="CAM") return "bg-red-600";
+      return "bg-gray-600";
+    }
+
+    const qualityState = videos.map(v => (v.quality || "HD"));
+
+    function posterCard(item, idx){
+      const card=document.createElement('div');
+      card.className='group relative rounded-2xl overflow-hidden block cursor-pointer';
+      card.innerHTML=`
+        <img src="${item.thumb}" alt="${item.title}" class="w-full aspect-[2/3] object-cover">
+        <div class="poster absolute inset-0"></div>
+        <div class="absolute left-2 top-2 text-[11px] bg-black/70 rounded-md px-2 py-1">${item.category} • ${item.year}</div>
+        <button type="button" aria-label="Ganti kualitas"
+          class="absolute right-2 top-2 text-[11px] ${qualityColor(qualityState[idx])} text-white rounded-md px-2 py-1 font-bold shadow">
+          ${qualityState[idx]}
+        </button>
+        <div class="absolute inset-x-0 bottom-0 p-3 flex items-center gap-2 translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition">
+          <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-600 shadow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="font-medium">Putar</div>
+        </div>`;
+
+      const badgeBtn = card.querySelector('button[aria-label="Ganti kualitas"]');
+      badgeBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        qualityState[idx] = nextQuality(qualityState[idx]);
+        badgeBtn.textContent = qualityState[idx];
+        badgeBtn.className = `absolute right-2 top-2 text-[11px] ${qualityColor(qualityState[idx])} text-white rounded-md px-2 py-1 font-bold shadow`;
+      });
+
+      card.addEventListener('click',()=>{
+        if((item.urls||[]).length<=1){ window.open(item.urls[0].link,'_blank'); }
+        else openServerModal(item);
+      });
+
+      const title=document.createElement('div');
+      title.className='mt-2 text-sm font-medium line-clamp-2 text-white/90';
+      title.textContent=item.title+(item.year?` (${item.year})`:"");
+      const wrapper=document.createElement('div'); wrapper.append(card,title);
+      return wrapper;
+    }
+
+    function render(){
+      const q=(searchBox.value||'').toLowerCase().trim();
+      let list=videos.map((v, i)=>({ ...v, __idx: i }));
+      if(activeCategory!=='Semua'){
+        list=list.filter(v=>v.category.split(',').map(c=>c.trim()).includes(activeCategory)||String(v.year)===String(activeCategory));
+      }
+      if(q) list=list.filter(v=>(v.title+' '+v.category).toLowerCase().includes(q));
+      grid.innerHTML='';
+      list.forEach(item=>grid.appendChild(posterCard(item, item.__idx)));
+    }
+
+    document.getElementById('year').textContent=new Date().getFullYear();
+    renderChips(); render();
+    searchBox.addEventListener('input',render);
+  </script>
+</body>
+</html>
