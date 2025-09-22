@@ -21,17 +21,8 @@
   <link rel="icon" type="image/png" href="netflix_M.png" sizes="32x32">
 
   <style>
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .poster::after {
-      content:""; position:absolute; inset:0;
-      transition:opacity .2s; opacity:0;
-      background:linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,0));
-    }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .poster::after { content:""; position:absolute; inset:0; transition:opacity .2s; opacity:0; background:linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,0)); }
     .poster:hover::after { opacity:.7; }
     @keyframes marquee { 0%{transform:translateX(100%);} 100%{transform:translateX(-100%);} }
     .animate-marquee { display:inline-block; animation:marquee 12s linear infinite; }
@@ -52,7 +43,6 @@
   <header class="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur border-b border-white/5">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
       <div class="flex items-center gap-2">
-        <!-- Logo H ramping -->
         <svg width="24" height="24" viewBox="0 0 24 24" class="text-red-600 drop-shadow" aria-hidden="true">
           <path fill="currentColor" d="M5 3h3v18H5zM16 3h3v18h-3z"/>
           <path fill="currentColor" d="M8 11.2h8v1.6H8z"/>
@@ -140,9 +130,8 @@
   </div>
 
   <script>
-    // === DATA VIDEO ===
+    // === DATA VIDEO & IKLAN ===
     const videos = [
-
       { 
         title: "Ne Zha II",
         year: 2025,
@@ -155,24 +144,27 @@
       },
 
       /* =========================
-         POSTER IKLAN (Adsterra)
-         =========================
-         - GANTI adSrc & adContainerId dari menu Ad Unit → GET CODE (Native Banner)
-         - urls optional (fallback tombol "Putar" di hero)
-      */
-     {
-  type: "ad",
-  title: "Sponsor",
-  year: new Date().getFullYear(),
-  thumb: "",            // tidak dipakai (slot diganti script iklan)
-  category: "",         // kosong supaya tidak muncul chip kategori
-  urls: [
-    { name: "Kunjungi", link: "https://example.com" } // optional fallback
-  ],
-  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
-  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
-},
+         IKLAN TIPE 1: NATIVE BANNER
+         - Pakai adSrc + adContainerId (kode dari menu GET CODE)
+      ==========================*/
+      {
+        type: "ad",
+        adFormat: "native",
+        title: "Sponsor",
+        year: new Date().getFullYear(),
+        category: "",
+        urls: [{ name: "Kunjungi", link: "https://example.com" }],
+        adSrc: "https://pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
+        adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
+      },
 
+      /* =========================
+         IKLAN TIPE 2: SCRIPT BANNER
+         - Pakai scriptSrc tunggal yang langsung menulis iklan
+      ==========================*/
+     
+
+      /* ====== CONTOH DATA FILM (potong untuk singkat, lanjutkan dengan milikmu) ====== */
       { 
         title: "Tabayyun ",
         year: 2025,
@@ -187,6 +179,10 @@
         category: "Indonesia"
       },
 
+      /* …lanjutkan daftar filmmu di sini seperti sebelumnya… */
+
+
+     
       { 
         title: "How To Train Your Dragon 2025 - myflik",
         year: 2025,
@@ -251,6 +247,15 @@
         category: "Animasi"
       },
 
+ {
+        type: "ad",
+        adFormat: "script",
+        title: "Sponsor (Script)",
+        year: new Date().getFullYear(),
+        category: "",
+        urls: [{ name: "Kunjungi", link: "https://example.com" }],
+        scriptSrc: "https://pl27696790.revenuecpmgate.com/ba/09/e1/ba09e1475893c16217d22d312ad37fbe.js"
+      },
       { 
         title: "S Line - Season 1 Episode 1-6",
         year: 2025,
@@ -308,21 +313,7 @@
 
 
 
-    {
-  type: "ad",
-  title: "Sponsor",
-  year: new Date().getFullYear(),
-  thumb: "",            // tidak dipakai (slot diganti script iklan)
-  category: "",         // kosong supaya tidak muncul chip kategori
-  urls: [
-    { name: "Kunjungi", link: "https://example.com" } // optional fallback
-  ],
-  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
-  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
-},
-
-
-
+   
 
 
 
@@ -458,19 +449,6 @@
         thumb: "iron-man-3.webp",
         category: "Marvel, Action"
       },
-    {
-  type: "ad",
-  title: "Sponsor",
-  year: new Date().getFullYear(),
-  thumb: "",            // tidak dipakai (slot diganti script iklan)
-  category: "",         // kosong supaya tidak muncul chip kategori
-  urls: [
-    { name: "Kunjungi", link: "https://example.com" } // optional fallback
-  ],
-  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
-  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
-},
-
 
 
 
@@ -588,18 +566,7 @@
         category: "Marvel, Action"
       },
 
-    {
-  type: "ad",
-  title: "Sponsor",
-  year: new Date().getFullYear(),
-  thumb: "",            // tidak dipakai (slot diganti script iklan)
-  category: "",         // kosong supaya tidak muncul chip kategori
-  urls: [
-    { name: "Kunjungi", link: "https://example.com" } // optional fallback
-  ],
-  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
-  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
-},
+
 
 
 
@@ -657,18 +624,6 @@
 
 
 
-    {
-  type: "ad",
-  title: "Sponsor",
-  year: new Date().getFullYear(),
-  thumb: "",            // tidak dipakai (slot diganti script iklan)
-  category: "",         // kosong supaya tidak muncul chip kategori
-  urls: [
-    { name: "Kunjungi", link: "https://example.com" } // optional fallback
-  ],
-  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
-  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
-},
 
 
 
@@ -815,18 +770,7 @@
         category: "Indonesia"
       },
 
-    {
-  type: "ad",
-  title: "Sponsor",
-  year: new Date().getFullYear(),
-  thumb: "",            // tidak dipakai (slot diganti script iklan)
-  category: "",         // kosong supaya tidak muncul chip kategori
-  urls: [
-    { name: "Kunjungi", link: "https://example.com" } // optional fallback
-  ],
-  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
-  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
-},
+  
 
 
 
@@ -879,7 +823,12 @@
         ],
         thumb: "drm.webp",
         category: "Aplikasi"
-      },
+      }
+
+
+
+
+
     ];
 
     // === Modal ===
@@ -930,13 +879,9 @@
     const searchBox = document.getElementById('searchBox');
     const chipBar = document.getElementById('chipBar');
 
-    // abaikan kategori kosong agar IKLAN tidak menambah chip
     const categories = ["Semua", ...Array.from(new Set(
-      videos.flatMap(v => (v.category || '')
-        .split(',')
-        .map(c => c.trim()))
-      )).filter(Boolean)
-    ];
+      videos.flatMap(v => (v.category || '').split(',').map(c => c.trim()))
+    )).filter(Boolean)];
     let activeCategory = 'Semua';
 
     function chipClass(isActive){
@@ -952,9 +897,7 @@
         const btn=document.createElement('button');
         btn.textContent=cat;
         btn.className=chipClass(String(cat)===String(activeCategory));
-        btn.addEventListener('click',()=>{
-          activeCategory=cat; renderChips(); render();
-        });
+        btn.addEventListener('click',()=>{ activeCategory=cat; renderChips(); render(); });
         chipBar.appendChild(btn);
       });
       const yearBtn=document.createElement('button');
@@ -970,29 +913,18 @@
       years.forEach(y=>{
         const b=document.createElement('button');
         b.textContent=y; b.className=chipClass(String(y)===String(activeCategory));
-        b.addEventListener('click',()=>{
-          activeCategory=y; renderChips(); render(); toggleYears();
-        });
+        b.addEventListener('click',()=>{ activeCategory=y; renderChips(); render(); toggleYears(); });
         yearDiv.appendChild(b);
       });
     }
 
     // === Badge kualitas ===
     const QUALITY_ORDER = ["HD","SD","CAM"];
-    function nextQuality(q){
-      const i = QUALITY_ORDER.indexOf(q);
-      return QUALITY_ORDER[(i+1) % QUALITY_ORDER.length] || "HD";
-    }
-    function qualityColor(q){
-      if(q==="HD") return "bg-green-600";
-      if(q==="SD") return "bg-yellow-500";
-      if(q==="CAM") return "bg-red-600";
-      return "bg-gray-600";
-    }
-
+    function nextQuality(q){ const i = QUALITY_ORDER.indexOf(q); return QUALITY_ORDER[(i+1)%QUALITY_ORDER.length] || "HD"; }
+    function qualityColor(q){ if(q==="HD") return "bg-green-600"; if(q==="SD") return "bg-yellow-500"; if(q==="CAM") return "bg-red-600"; return "bg-gray-600"; }
     const qualityState = videos.map(v => (v.quality || "HD"));
 
-    // kartu film biasa
+    // Kartu film
     function posterCard(item, idx){
       const card=document.createElement('div');
       card.className='group relative rounded-2xl overflow-hidden block cursor-pointer';
@@ -1001,70 +933,48 @@
         <div class="poster absolute inset-0"></div>
         <div class="absolute left-2 top-2 text-[11px] bg-black/70 rounded-md px-2 py-1">${item.category} • ${item.year}</div>
         <button type="button" aria-label="Ganti kualitas"
-          class="absolute right-2 top-2 text-[11px] ${qualityColor(qualityState[idx])} text-white rounded-md px-2 py-1 font-bold shadow">
-          ${qualityState[idx]}
-        </button>
+          class="absolute right-2 top-2 text-[11px] ${qualityColor(qualityState[idx])} text-white rounded-md px-2 py-1 font-bold shadow">${qualityState[idx]}</button>
         <div class="absolute inset-x-0 bottom-0 p-3 flex items-center gap-2 translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition">
           <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-600 shadow">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </div>
           <div class="font-medium">Putar</div>
         </div>`;
-
       const badgeBtn = card.querySelector('button[aria-label="Ganti kualitas"]');
-      badgeBtn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        qualityState[idx] = nextQuality(qualityState[idx]);
-        badgeBtn.textContent = qualityState[idx];
-        badgeBtn.className = `absolute right-2 top-2 text-[11px] ${qualityColor(qualityState[idx])} text-white rounded-md px-2 py-1 font-bold shadow`;
-      });
-
-      card.addEventListener('click',()=>{
-        if((item.urls||[]).length<=1){ window.open(item.urls[0].link,'_blank'); }
-        else openServerModal(item);
-      });
-
-      const title=document.createElement('div');
-      title.className='mt-2 text-sm font-medium line-clamp-2 text-white/90';
-      title.textContent=item.title+(item.year?` (${item.year})`:"");
-      const wrapper=document.createElement('div'); wrapper.append(card,title);
-      return wrapper;
+      badgeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); qualityState[idx]=nextQuality(qualityState[idx]); badgeBtn.textContent=qualityState[idx]; badgeBtn.className=`absolute right-2 top-2 text-[11px] ${qualityColor(qualityState[idx])} text-white rounded-md px-2 py-1 font-bold shadow`; });
+      card.addEventListener('click',()=>{ if((item.urls||[]).length<=1){ window.open(item.urls[0].link,'_blank'); } else openServerModal(item); });
+      const title=document.createElement('div'); title.className='mt-2 text-sm font-medium line-clamp-2 text-white/90'; title.textContent=item.title+(item.year?` (${item.year})`:"");
+      const wrapper=document.createElement('div'); wrapper.append(card,title); return wrapper;
     }
 
-    // kartu IKLAN (rasio poster 2:3)
-    function renderAdCard(ad){
+    // Kartu IKLAN - Native
+    function renderAdCardNative(ad){
       const wrap = document.createElement('div');
-
       const card = document.createElement('div');
       card.className = 'group relative rounded-2xl overflow-hidden block';
-
       card.innerHTML = `
-        <div class="w-full aspect-[2/3] bg-neutral-900">
-          <div id="${ad.adContainerId}" class="w-full h-full"></div>
+        <div class="w-full aspect-[2/3] bg-neutral-900"><div id="${ad.adContainerId}" class="w-full h-full"></div></div>
+        <div class="poster absolute inset-0"></div>
+        <div class="absolute left-2 top-2 text-[11px] bg-red-600 rounded-md px-2 py-1">IKLAN</div>`;
+      const s = document.createElement('script'); s.async = true; s.setAttribute('data-cfasync','false'); s.src = ad.adSrc; card.appendChild(s);
+      const title = document.createElement('div'); title.className = 'mt-2 text-sm font-medium line-clamp-2 text-white/90'; title.textContent = ad.title || 'Sponsor';
+      wrap.append(card, title); return wrap;
+    }
+
+    // Kartu IKLAN - Script
+    function renderAdCardScript(ad){
+      const wrap = document.createElement('div');
+      const card = document.createElement('div');
+      card.className = 'group relative rounded-2xl overflow-hidden block';
+      card.innerHTML = `
+        <div class="w-full aspect-[2/3] bg-neutral-900 flex items-center justify-center p-2">
+          <div class="w-full h-full overflow-hidden flex items-center justify-center"></div>
         </div>
         <div class="poster absolute inset-0"></div>
-        <div class="absolute left-2 top-2 text-[11px] bg-red-600 rounded-md px-2 py-1">IKLAN</div>
-        <div class="absolute inset-x-0 bottom-0 p-3 flex items-center gap-2 translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition">
-          <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-600 shadow">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <div class="font-medium">Sponsor</div>
-        </div>
-      `;
-
-      // muat script Adsterra (pakai https kalau adSrc diawali //)
-      const s = document.createElement('script');
-      s.async = true;
-      s.setAttribute('data-cfasync','false');
-      s.src = ad.adSrc && ad.adSrc.startsWith('//') ? ('https:' + ad.adSrc) : ad.adSrc;
-      card.appendChild(s);
-
-      const title = document.createElement('div');
-      title.className = 'mt-2 text-sm font-medium line-clamp-2 text-white/90';
-      title.textContent = ad.title || 'Sponsor';
-
-      wrap.append(card, title);
-      return wrap;
+        <div class="absolute left-2 top-2 text-[11px] bg-red-600 rounded-md px-2 py-1">IKLAN</div>`;
+      const s = document.createElement('script'); s.type='text/javascript'; s.async = true; s.src = ad.scriptSrc; card.appendChild(s);
+      const title = document.createElement('div'); title.className = 'mt-2 text-sm font-medium line-clamp-2 text-white/90'; title.textContent = ad.title || 'Sponsor';
+      wrap.append(card, title); return wrap;
     }
 
     function render(){
@@ -1072,16 +982,16 @@
       let list=videos.map((v, i)=>({ ...v, __idx: i }));
 
       if(activeCategory!=='Semua'){
-        list=list.filter(v=> (v.category || '')
-          .split(',')
-          .map(c=>c.trim())
-          .includes(activeCategory) || String(v.year)===String(activeCategory));
+        list=list.filter(v=> (v.category || '').split(',').map(c=>c.trim()).includes(activeCategory) || String(v.year)===String(activeCategory));
       }
       if(q) list=list.filter(v=>(v.title+' '+(v.category||'')).toLowerCase().includes(q));
 
       grid.innerHTML='';
       list.forEach(item=>{
-        const node = (item.type === 'ad') ? renderAdCard(item) : posterCard(item, item.__idx);
+        let node;
+        if(item.type === 'ad' && item.adFormat === 'native') node = renderAdCardNative(item);
+        else if(item.type === 'ad' && item.adFormat === 'script') node = renderAdCardScript(item);
+        else node = posterCard(item, item.__idx);
         grid.appendChild(node);
       });
     }
