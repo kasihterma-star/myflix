@@ -7,20 +7,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <meta name="description" content="Website streaming sederhana bergaya NETFLIX. Klik poster untuk menonton film favoritmu." />
 
- 
-
   <!-- Open Graph (untuk WhatsApp, FB, IG preview) -->
   <meta property="og:title" content="Hyflik - Nonton Film Sederhana" />
   <meta property="og:description" content="Website streaming sederhana bergaya NETFLIX.@biasa_L4." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.instagram.com/hy.flik/" />
-
   <!-- Gambar preview OG -->
   <meta property="og:image" content="https://kasihterma-star.github.io/myflix/netflix_M.png?v=2" />
   <meta property="og:image:secure_url" content="https://kasihterma-star.github.io/myflix/123.png?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -150,7 +146,7 @@
     // === DATA VIDEO ===
     const videos = [
 
-{ 
+      { 
         title: "Ne Zha II",
         year: 2025,
         urls: [
@@ -161,23 +157,27 @@
         category: "Animasi"
       },
 
+      /* =========================
+         POSTER IKLAN (Adsterra)
+         =========================
+         - GANTI adSrc & adContainerId pakai kode dari Adsterra → Get Code (Native Banner)
+         - urls disediakan agar tombol "Putar" di Hero tetap aman jika iklan masuk ke heroPool
+      */
+     {
+  type: "ad",
+  title: "Sponsor",
+  year: new Date().getFullYear(),
+  thumb: "",            // tidak dipakai (slot diisi script iklan)
+  category: "",         // kosong supaya tidak nambah chip kategori
+  urls: [
+    { name: "Kunjungi", link: "https://example.com" } // optional (fallback tombol "Putar")
+  ],
+  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
+  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
+},
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-       { 
+      { 
         title: "Tabayyun ",
         year: 2025,
         quality: "SD",
@@ -191,11 +191,7 @@
         category: "Indonesia"
       },
 
-
-
-
-      
-       { 
+      { 
         title: "How To Train Your Dragon 2025 - myflik",
         year: 2025,
         urls: [
@@ -205,21 +201,7 @@
         thumb: "how.webp",
         category: "Fiksi"
       },
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
       { 
         title: "Twelve",
         year: 2025,
@@ -229,17 +211,18 @@
           { name: "Episode 2 server 2 (canva)", link: "https://www.canva.com/design/DAGzDoJM02k/pZnGD_ZEsEZ8FIKskd-Slw/watch?utm_content=DAGzDoJM02k&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4b246aff28" },
           { name: "Episode 2 server 3 (Google Foto)", link: "https://photos.app.goo.gl/ag8fzpjNg2qBNpPu9" },
           { name: "Episode 3 sever 1  ", link: "https://film.myflixnibosss.my.id/videos/myflix Twelve Season 1 Episode 3.mp4" },
-           { name: "Episode 3 sever 2 (canva)",link: "https://www.canva.com/design/DAGzYMT5WIk/q6tQyTdGHtk7C2S3OxatTw/watch?utm_content=DAGzYMT5WIk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfc1e1703f8" },
-              { name: "Episode 3 sever 3 (Google Foto)" , link: "https://photos.app.goo.gl/C1Fvw2NVRkekzyNFA" },
+          { name: "Episode 3 sever 2 (canva)",link: "https://www.canva.com/design/DAGzYMT5WIk/q6tQyTdGHtk7C2S3OxatTw/watch?utm_content=DAGzYMT5WIk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hfc1e1703f8" },
+          { name: "Episode 3 sever 3 (Google Foto)" , link: "https://photos.app.goo.gl/C1Fvw2NVRkekzyNFA" },
           { name: "Episode 4 sever 1 ", link: "https://film.myflixnibosss.my.id/videos/myflix Twelve Season 1 Episode 4 2025.mp4" },
-              { name: "Episode 4 sever 2 (canva)", link: "https://www.canva.com/design/DAGzbkgSU8Y/SXLtyYWY2k5eS7qVM3aH9Q/watch?utm_content=DAGzbkgSU8Y&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h21fb971aa7" },
-                   { name: "Episode 4 sever 2 (Google Foto)", link: "https://photos.app.goo.gl/GyP8onwWLUKxYqmk6" },
+          { name: "Episode 4 sever 2 (canva)", link: "https://www.canva.com/design/DAGzbkgSU8Y/SXLtyYWY2k5eS7qVM3aH9Q/watch?utm_content=DAGzbkgSU8Y&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h21fb971aa7" },
+          { name: "Episode 4 sever 2 (Google Foto)", link: "https://photos.app.goo.gl/GyP8onwWLUKxYqmk6" },
           { name: "Episode 5 coming soon", link: "" },
           { name: "Episode 6coming soon", link: "" },
         ],
         thumb: "Twelve.webp",
         category: " Korea, Action, series "
       },
+
       { 
         title: "The Conjuring: Last Rites",
         year: 2025,
@@ -251,6 +234,7 @@
         thumb: "conjuring.webp",
         category: "Horor"
       },
+
       { 
         title: "Doraemon the Movie: Nobitas Art World Tales",
         year: 2025,
@@ -260,6 +244,7 @@
         thumb: "doraemon.webp",
         category: "Animasi"
       },
+
       { 
         title: "Kpop Demon Hunters",
         year: 2025,
@@ -269,6 +254,7 @@
         thumb: "HUNTER.webp",
         category: "Animasi"
       },
+
       { 
         title: "S Line - Season 1 Episode 1-6",
         year: 2025,
@@ -283,6 +269,7 @@
         thumb: "line.webp",
         category: "korea, series"
       },
+
       { 
         title: "Jurassic World Rebirth",
         year: 2025,
@@ -292,6 +279,7 @@
         thumb: "jurassic-rebirth.webp",
         category: "Fiksi"
       },
+
       { 
         title: "Ghost Train",
         year: 2025,
@@ -301,6 +289,7 @@
         thumb: "ghost-train.webp",
         category: "Horor"
       },
+
       { 
         title: "Superman",
         year: 2025,
@@ -310,6 +299,7 @@
         thumb: "Superman.webp",
         category: "Action"
       },
+
       { 
         title: "The Bad Guys 2",
         year: 2025,
@@ -319,6 +309,7 @@
         thumb: "gusy.webp",
         category: "Animasi"
       },
+
       { 
         title: "Panggil Aku Ayah",
         year: 2025,
@@ -330,6 +321,7 @@
         thumb: "pang.webp",
         category: "Indonesia"
       },
+
       { 
         title: "LA TAHZAN: CINTA, DOSA, LUKA  ",
         year: 2025,
@@ -341,6 +333,7 @@
         thumb: "la_tahzan.webp",
         category: "Indonesia"
       },
+
       { 
         title: "Holy-Night-Demon-Hunters",
         year: 2025,
@@ -351,7 +344,7 @@
         category: "Horor,Action"
       },
 
-{ 
+      { 
         title: " A Shop For Killers",
         year: 2024,
         urls: [
@@ -361,15 +354,14 @@
           { name: "Episode 4", link: "https://photos.app.goo.gl/w1tBfgEAAZ6zvB3Q6" },
           { name: "Episode 5", link: "https://photos.app.goo.gl/2XCLuFjDyUhLF3rX9" },
           { name: "Episode 6", link: "https://photos.app.goo.gl/2XCLuFjDyUhLF3rX9" },
-           { name: "Episode 7", link: "https://photos.app.goo.gl/9tyR36LAq2nQ5xyt8" },
-           { name: "Episode 8", link: "https://photos.app.goo.gl/TJD1imbQVhERZgFz8" },
+          { name: "Episode 7", link: "https://photos.app.goo.gl/9tyR36LAq2nQ5xyt8" },
+          { name: "Episode 8", link: "https://photos.app.goo.gl/TJD1imbQVhERZgFz8" },
         ],
         thumb: "killer.webp",
         category: "korea, series"
       },
 
-
-{ 
+      { 
         title: "Azzamine ",
         year: 2024,
         quality: "SD",
@@ -383,14 +375,6 @@
         category: "Indonesia"
       },
 
-
-
-
-
-
-
-
-      
       { 
         title: "Vigilante",
         year: 2023,
@@ -405,6 +389,7 @@
         thumb: "Vigilante.webp",
         category: " Korea, Action "
       },
+
       { 
         title: "hidden love  - Season 1 Episode 1-25",
         year: 2023,
@@ -422,24 +407,14 @@
           { name: "Episode 11", link: "https://photos.app.goo.gl/dUzqQRtFZQwygUF67" },
           { name: "Episode 12", link: "https://www.canva.com/design/DAGyiIYurWY/OgRnQXkM4QLAI5MWSaCPoQ/watch?utm_content=DAGyiIYurWY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h392f9a9c85" },
           { name: "Episode 13", link:  "https://photos.app.goo.gl/bQ5v3sXMrnraE8iU8"},
-          { name: "Episode 14 coming soon", link:  ""},
-          { name: "Episode 15 coming soon", link:  ""},
-          { name: "Episode 16 coming soon", link:  ""},
-          { name: "Episode 17 coming soon", link:  ""},
-          { name: "Episode 18 coming soon", link:  ""},
-          { name: "Episode 19 coming soon", link:  ""},
-          { name: "Episode 20 coming soon", link:  ""},
-          { name: "Episode 21 coming soon", link:  ""},
-          { name: "Episode 22 coming soon", link:  ""},
-          { name: "Episode 23 coming soon", link:  ""},
-          { name: "Episode 24 coming soon", link:  ""},
-          { name: "Episode 25 coming soon", link:  ""},
+          { name: "Episode 14 coming soon", link:  ""}, { name: "Episode 15 coming soon", link:  ""}, { name: "Episode 16 coming soon", link:  ""}, { name: "Episode 17 coming soon", link:  ""}, { name: "Episode 18 coming soon", link:  ""}, { name: "Episode 19 coming soon", link:  ""}, { name: "Episode 20 coming soon", link:  ""}, { name: "Episode 21 coming soon", link:  ""}, { name: "Episode 22 coming soon", link:  ""}, { name: "Episode 23 coming soon", link:  ""}, { name: "Episode 24 coming soon", link:  ""}, { name: "Episode 25 coming soon", link:  ""},
         ],
         thumb: "hiddenlove.webp",
         category: "cina, series"
       },
-{ 
- title: "doctor strange",
+
+      { 
+        title: "doctor strange",
         year: 2022,
         urls: [
           { name: "Server 1", link: "https://film.myflixnibosss.my.id/videos/Doctor-Strange-In-The-Multiverse-Of-Madness-2022-hyflik.mp4" },
@@ -449,22 +424,6 @@
         category: "Marvel, Action"
       },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
       { 
         title: "Iron Man 3",
         year: 2013,
@@ -511,7 +470,6 @@
         category: " Fiksi"
       },
 
-  
       { 
         title: "Villagers",
         year: 2018,
@@ -523,8 +481,6 @@
         category: "Korea, Action"
       },
 
-   
-      
       { 
         title: "The Amazing Spider-Man 2",
         year: 2014,
@@ -598,7 +554,7 @@
         category: "Marvel, Action"
       },
 
-  { 
+      { 
         title: "How to Train Your Dragon",
         year: 2010,
         urls: [
@@ -609,19 +565,6 @@
         category: "Animasi "
       },
 
-
-
-
-
-
-
-
-
-
-
-
-
-      
       { 
         title: "Leprechaun: The Beginning",
         year: 2025,
@@ -631,7 +574,7 @@
         thumb: "Leprechaun.webp",
         category: "Horor"
       },
- { 
+      { 
         title: "TENET",
         year: 2017,
         urls: [
@@ -639,10 +582,9 @@
         ],
         thumb: "tenet.webp",
         category: "Action"
- },
+      },
 
-
- { 
+      { 
         title: "Squid Game Season 1",
         year: 2021,
         urls: [
@@ -655,18 +597,7 @@
         category: "korea,series"
       },
 
-
-
-
-
-
-
-
-
-
-
-      
-         { 
+      { 
         title: " Free Guy ",
         year: 2021,
         urls: [
@@ -675,7 +606,6 @@
         thumb: "free_guy.webp",
         category: "Fiksi"
       },
-      
       { 
         title: "Dragon Nest: Warriors' Dawn",
         year: 2014,
@@ -704,10 +634,7 @@
         category: "Action"
       },
 
-
-
-
-            { 
+      { 
         title: "Transformers",
         year: 2009,
         urls: [
@@ -718,29 +645,6 @@
         category: "Action"
       },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
       { 
         title: "Avatar: The Way of Water",
         year: 2022,
@@ -827,10 +731,9 @@
         thumb: "3idiots-600.webp",
         category: "India"
       },
-       { 
+      { 
         title: "Catch Me If You Can",
         year: 2002,
-        
         urls: [
           { name: "Server 1", link: "https://photos.app.goo.gl/7CuoUWMwMdy9Kvgn8" },
         ],
@@ -838,14 +741,13 @@
         category: "Action"
       },
 
-       { 
+      { 
         title: "Dramabox MOD (gratis /premium)",
         year: 2025 ,
-        
         urls: [
           { name: "Donwload aplikasi Dramabox premium ", link: "https://film.myflixnibosss.my.id/apk/dramabox_myflix.apk" },
           { name: " kusus ANDROID IP GAK DI AJAK ", link: "https://film.myflixnibosss.my.id/apk/dramabox_myflix.apk" },
-           { name: " grub telegram apk MOD  ", link:" https://t.me/Getmodpcs"},
+          { name: " grub telegram apk MOD  ", link:" https://t.me/Getmodpcs"},
         ],
         thumb: "drm.webp",
         category: "Aplikasi"
@@ -883,12 +785,12 @@
     let heroIndex = 0;
     const heroPool = videos.slice(0,6);
     function setHero(item){
-      heroBg.style.backgroundImage = `linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.75)),url('${item.thumb}')`;
+      heroBg.style.backgroundImage = `linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.75)),url('${item.thumb || ""}')`;
       heroTitle.textContent = item.title + (item.year ? ` (${item.year})` : "");
       heroDesc.textContent = "Kategori: " + (item.category || "—");
       heroPlay.onclick = (e) => {
         e.preventDefault();
-        if(item.urls.length<=1){ window.open(item.urls[0].link,'_blank'); }
+        if((item.urls||[]).length<=1){ if(item.urls?.[0]?.link) window.open(item.urls[0].link,'_blank'); }
         else openServerModal(item);
       };
     }
@@ -899,7 +801,14 @@
     const grid = document.getElementById('grid');
     const searchBox = document.getElementById('searchBox');
     const chipBar = document.getElementById('chipBar');
-    const categories = ["Semua", ...Array.from(new Set(videos.flatMap(v=>v.category.split(',').map(c=>c.trim()))))];
+
+    // 🔧 kecil: abaikan kategori kosong agar IKLAN tidak menambah chip
+    const categories = ["Semua", ...Array.from(new Set(
+      videos.flatMap(v => (v.category || '')
+        .split(',')
+        .map(c => c.trim()))
+      )).filter(Boolean)
+    ];
     let activeCategory = 'Semua';
 
     function chipClass(isActive){
@@ -993,15 +902,59 @@
       return wrapper;
     }
 
+    // === KARTU IKLAN (rasio 2:3, ikut gaya poster) ===
+    function renderAdCard(ad){
+      const wrap = document.createElement('div');
+
+      const card = document.createElement('div');
+      card.className = 'group relative rounded-2xl overflow-hidden block';
+
+      card.innerHTML = `
+        <div class="w-full aspect-[2/3] bg-neutral-900">
+          <div id="${ad.adContainerId}" class="w-full h-full"></div>
+        </div>
+        <div class="poster absolute inset-0"></div>
+        <div class="absolute left-2 top-2 text-[11px] bg-red-600 rounded-md px-2 py-1">IKLAN</div>
+        <div class="absolute inset-x-0 bottom-0 p-3 flex items-center gap-2 translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition">
+          <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-red-600 shadow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="font-medium">Sponsor</div>
+        </div>
+      `;
+
+      // muat script Adsterra ke dalam kartu
+      const s = document.createElement('script');
+      s.async = true;
+      s.setAttribute('data-cfasync','false');
+      s.src = ad.adSrc;
+      card.appendChild(s);
+
+      const title = document.createElement('div');
+      title.className = 'mt-2 text-sm font-medium line-clamp-2 text-white/90';
+      title.textContent = ad.title || 'Sponsor';
+
+      wrap.append(card, title);
+      return wrap;
+    }
+
     function render(){
       const q=(searchBox.value||'').toLowerCase().trim();
       let list=videos.map((v, i)=>({ ...v, __idx: i }));
+
       if(activeCategory!=='Semua'){
-        list=list.filter(v=>v.category.split(',').map(c=>c.trim()).includes(activeCategory)||String(v.year)===String(activeCategory));
+        list=list.filter(v=> (v.category || '')
+          .split(',')
+          .map(c=>c.trim())
+          .includes(activeCategory) || String(v.year)===String(activeCategory));
       }
-      if(q) list=list.filter(v=>(v.title+' '+v.category).toLowerCase().includes(q));
+      if(q) list=list.filter(v=>(v.title+' '+(v.category||'')).toLowerCase().includes(q));
+
       grid.innerHTML='';
-      list.forEach(item=>grid.appendChild(posterCard(item, item.__idx)));
+      list.forEach(item=>{
+        const node = (item.type === 'ad') ? renderAdCard(item) : posterCard(item, item.__idx);
+        grid.appendChild(node);
+      });
     }
 
     document.getElementById('year').textContent=new Date().getFullYear();
