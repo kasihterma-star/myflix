@@ -160,18 +160,18 @@
          - GANTI adSrc & adContainerId dari menu Ad Unit → GET CODE (Native Banner)
          - urls optional (fallback tombol "Putar" di hero)
       */
-      {
-        type: "ad",
-        title: "Sponsor",
-        year: new Date().getFullYear(),
-        thumb: "",
-        category: "",
-        urls: [
-          { name: "Kunjungi", link: "https://example.com" }
-        ],
-        adSrc: "https://pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
-        adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
-      },
+     {
+  type: "ad",
+  title: "Sponsor",
+  year: new Date().getFullYear(),
+  thumb: "",            // tidak dipakai (slot diganti script iklan)
+  category: "",         // kosong supaya tidak muncul chip kategori
+  urls: [
+    { name: "Kunjungi", link: "https://example.com" } // optional fallback
+  ],
+  adSrc: "//pl27696427.revenuecpmgate.com/d7bcc938f1becf0285c5e238f69a5784/invoke.js",
+  adContainerId: "container-d7bcc938f1becf0285c5e238f69a5784"
+},
 
       { 
         title: "Tabayyun ",
