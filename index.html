@@ -1153,6 +1153,13 @@
         category: ""
       },
     ];
+    
+videos.sort((a, b) => {
+  const ya = Number(a.year) || 0;
+  const yb = Number(b.year) || 0;
+  return yb - ya; // besar ke kecil
+});
+
 
     // === Script Modal, Hero, Filter, dll ===
     const serverModal = document.getElementById('serverModal');
